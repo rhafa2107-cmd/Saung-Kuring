@@ -1,0 +1,232 @@
+/* =============================================
+   TAMBAHAN — STATUS SIAP, BADGE, KWITANSI, dsb
+   ============================================= */
+
+/* Status siap (hijau muda) */
+.status-siap { background:#d1f5e0; color:#0a6640; }
+
+/* Badge metode bayar di kartu kasir */
+.badge-qr   { background:#dce8ff; color:#1a3a8a; font-size:0.72rem; font-weight:800; padding:2px 8px; border-radius:4px; }
+.badge-cash { background:#fff3cd; color:#856404; font-size:0.72rem; font-weight:800; padding:2px 8px; border-radius:4px; }
+
+/* Pill filter menu */
+.pill-filter {
+  background: none;
+  border: 2px solid var(--coklat);
+  color: var(--coklat);
+  padding: 5px 16px;
+  border-radius: 20px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pill-filter:hover, .pill-filter.pill-aktif { background: var(--coklat); color: var(--kuning); }
+.pill-aktif { background: var(--coklat) !important; color: var(--kuning) !important; }
+
+/* Status kartu pembeli */
+.status-kartu {
+  background: var(--kartu);
+  border: 2px solid var(--coklat);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  animation: bawah 0.4s ease;
+}
+.status-kartu-siap { border-color: var(--hijau); background: #f0fff6; }
+.status-kartu-head { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; }
+.status-order-id   { font-family:'Fredoka One',cursive; font-size:1rem; color:var(--coklat2); }
+.status-badge      { padding:4px 12px; border-radius:20px; font-size:0.75rem; font-weight:800; }
+.status-detail     { display:flex; gap:16px; font-size:0.84rem; font-weight:600; margin-bottom:8px; }
+.status-items      { font-size:0.82rem; color:var(--abu); margin-bottom:8px; line-height:1.6; }
+.notif-siap        { background:#d1f5e0; color:#0a6640; padding:10px 14px; border-radius:8px; font-size:0.84rem; font-weight:700; margin-top:10px; }
+
+/* Tombol kwitansi di kartu kasir */
+.btn-kwitansi {
+  background: var(--kuning);
+  color: var(--coklat);
+  border: 2px solid var(--coklat);
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-kwitansi:hover { background: var(--coklat); color: var(--kuning); }
+
+/* =============================================
+   MODAL KWITANSI
+   ============================================= */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-kwitansi {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px 28px;
+  width: 100%;
+  max-width: 380px;
+  max-height: 90vh;
+  overflow-y: auto;
+  font-family: 'Nunito', monospace;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.kwit-header    { text-align:center; margin-bottom:12px; }
+.kwit-logo      { font-family:'Fredoka One',cursive; font-size:1.5rem; color:var(--coklat); }
+.kwit-sub       { font-size:0.75rem; color:var(--abu); margin-top:2px; }
+.kwit-garis     { border:none; border-top:2px dashed var(--border); margin:12px 0; }
+.kwit-row       { display:flex; justify-content:space-between; font-size:0.83rem; margin-bottom:6px; }
+.kwit-total-row { font-family:'Fredoka One',cursive; font-size:1.1rem; color:var(--coklat); }
+.kwit-footer    { text-align:center; margin-top:14px; font-size:0.78rem; color:var(--abu); line-height:1.8; }
+.kwit-aksi      { display:flex; gap:10px; margin-top:18px; }
+.btn-print      { flex:1; background:var(--coklat); color:var(--kuning); border:none; border-radius:8px; padding:10px; font-family:'Fredoka One',cursive; font-size:0.9rem; cursor:pointer; }
+.btn-tutup-kwit { flex:1; background:var(--bg); color:var(--coklat); border:2px solid var(--coklat); border-radius:8px; padding:10px; font-family:'Fredoka One',cursive; font-size:0.9rem; cursor:pointer; }
+
+/* =============================================
+   HALAMAN BAYAR PILIHAN
+   ============================================= */
+.bayar-pilihan { display:flex; gap:10px; flex-wrap:wrap; margin-top:6px; }
+.bayar-opt {
+  display:flex; align-items:center; gap:8px;
+  border:2px solid var(--border); border-radius:8px;
+  padding:10px 14px; cursor:pointer; font-weight:700;
+  font-size:0.88rem; flex:1; transition:all 0.2s;
+}
+.bayar-opt:has(input:checked) { border-color:var(--coklat); background:rgba(62,42,15,0.06); }
+.bayar-opt input { accent-color:var(--coklat); }
+.qr-info-box {
+  background:var(--kartu); border:2px solid var(--border);
+  border-radius:10px; padding:16px; display:inline-block;
+}
+
+/* =============================================
+   LAPORAN KEUANGAN (ADMIN)
+   ============================================= */
+.laporan-wrap { animation:muncul 0.4s ease; }
+.laporan-summary { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:20px; }
+.lap-box {
+  border-radius:10px; padding:18px 20px;
+  display:flex; align-items:center; gap:14px;
+}
+.lap-masuk { background:#d1f5e0; border:2px solid #27ae60; }
+.lap-order { background:#dce8ff; border:2px solid #3498db; }
+.lap-avg   { background:#fff3cd; border:2px solid #f39c12; }
+.lap-icon  { font-size:2rem; }
+.lap-label { font-size:0.75rem; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--abu); }
+.lap-angka { font-family:'Fredoka One',cursive; font-size:1.3rem; color:var(--coklat); margin-top:2px; }
+
+/* =============================================
+   QR PAGE
+   ============================================= */
+.qr-page-wrap { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:30px; }
+.qr-card {
+  background:var(--kartu); border:2px solid var(--coklat);
+  border-radius:12px; padding:24px; text-align:center;
+}
+.qr-card h3 { font-family:'Fredoka One',cursive; font-size:1.2rem; margin-bottom:6px; }
+.qr-card p  { font-size:0.82rem; color:var(--abu); margin-bottom:14px; }
+.qr-url-label { font-size:0.72rem; color:var(--abu); word-break:break-all; margin:10px 0; }
+.btn-print-qr {
+  background:var(--coklat); color:var(--kuning); border:none;
+  border-radius:8px; padding:10px 20px; font-family:'Fredoka One',cursive;
+  font-size:0.9rem; cursor:pointer; margin-top:10px; transition:opacity 0.2s;
+}
+.btn-print-qr:hover { opacity:0.8; }
+.qr-petunjuk {
+  background:var(--kartu); border:2px solid var(--border);
+  border-radius:12px; padding:24px;
+}
+.qr-petunjuk h3 { font-family:'Fredoka One',cursive; font-size:1.2rem; margin-bottom:14px; }
+.qr-petunjuk ol { padding-left:20px; }
+.qr-petunjuk li { font-size:0.88rem; font-weight:600; margin-bottom:8px; line-height:1.5; }
+
+/* Form tambah menu — tombol batal edit */
+.btn-batal-edit {
+  background:#fde8e8; border:2px solid #e09090; color:var(--merah);
+  border-radius:6px; padding:8px 16px; font-family:'Nunito',sans-serif;
+  font-size:0.84rem; font-weight:800; cursor:pointer;
+}
+
+/* btn edit menu di tabel admin */
+.btn-edit-menu { background:#e8f0ff; border-color:#7a9de0; color:#1a3a8a; }
+.btn-edit-menu:hover { background:#1a3a8a; color:#fff; }
+
+/* =============================================
+   PRINT STYLE — kwitansi saja yang tampil
+   ============================================= */
+@media print {
+  body > *:not(.modal-overlay) { display:none !important; }
+  .modal-overlay { display:flex !important; position:static !important; background:none !important; padding:0 !important; }
+  .modal-kwitansi { box-shadow:none !important; max-height:none !important; }
+  .no-print { display:none !important; }
+}
+
+/* =============================================
+   RESPONSIVE TAMBAHAN
+   ============================================= */
+@media (max-width: 860px) {
+  .laporan-summary { grid-template-columns:1fr; }
+  .qr-page-wrap    { grid-template-columns:1fr; }
+  .bayar-pilihan   { flex-direction:column; }
+}
+
+/* =============================================
+   QR DANA PAYMENT
+   ============================================= */
+.qr-dana-box {
+  background: #fff;
+  border: 2px solid #1a8fd1;
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: inline-block;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(26,143,209,0.15);
+}
+.qr-dana-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.qr-dana-logo {
+  background: #1a8fd1;
+  color: #fff;
+  font-family: 'Fredoka One', cursive;
+  font-size: 1rem;
+  padding: 4px 14px;
+  border-radius: 20px;
+}
+.qr-dana-label {
+  font-size: 0.82rem;
+  color: var(--abu);
+  font-weight: 700;
+}
+.qr-dana-img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+}
+.qr-dana-total {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.2rem;
+  color: var(--coklat);
+  margin-top: 12px;
+}
+.qr-dana-note {
+  font-size: 0.75rem;
+  color: var(--abu);
+  margin-top: 8px;
+  line-height: 1.5;
+}
