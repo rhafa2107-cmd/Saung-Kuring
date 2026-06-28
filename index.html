@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Saung Kuring — Cafe Sunda</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+
 <link rel="stylesheet" href="style.css"/>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 </head>
 <body>
 
@@ -15,14 +17,16 @@
   <div class="nav-kanan">
     <button class="nav-link" onclick="buka('menu')">Menu</button>
     <button class="nav-link" onclick="buka('pesan')">Pesan</button>
-    <button class="nav-badge" id="nav-login-btn"  onclick="buka('login')">Login Staff</button>
-    <button class="nav-link"  id="nav-kasir-link" onclick="buka('kasir')"  style="display:none">Dashboard Kasir</button>
-    <button class="nav-link"  id="nav-admin-link" onclick="buka('admin')"  style="display:none">Dashboard Admin</button>
-    <button class="nav-link"  id="nav-keluar-btn" onclick="keluar()"       style="display:none">Keluar</button>
+    <button class="nav-link" id="nav-status-btn" onclick="buka('status-pesanan')" style="display:none">📋 Pesanan Saya</button>
+    <button class="nav-link" id="nav-kasir-btn" onclick="buka('kasir')" style="display:none">Kasir</button>
+    <button class="nav-link" id="nav-admin-btn" onclick="buka('admin')" style="display:none">Admin</button>
+    <button class="nav-link" id="nav-qr-btn" onclick="buka('qr-page')" style="display:none">QR Akses</button>
+    <button class="nav-badge" id="nav-login-btn" onclick="buka('login')">Login Staff</button>
+    <button class="nav-link" id="nav-keluar-btn" onclick="keluar()" style="display:none">Keluar</button>
   </div>
 </nav>
 
-<!-- ════════════ HALAMAN: HOME ════════════ -->
+<!-- HOME -->
 <div class="halaman aktif" id="hal-home">
   <div class="hero">
     <div class="hero-kiri">
@@ -30,62 +34,35 @@
       <p>Cita rasa masakan Sunda yang hangat & autentik</p>
       <button class="btn-pesan" onclick="buka('menu')">Lihat Menu & Pesan →</button>
     </div>
-    <div class="hero-kanan">🍃</div>
+    <div class="hero-kanan">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWNdOsyGhityKeAloROZ7Wt3koeOjdHtMrej_nFGZ_zA&s=10" alt="Makanan Sunda">
+    </div>
   </div>
   <div class="section">
     <div class="section-judul">Menu Andalan</div>
     <div class="grid-3" id="home-grid"></div>
   </div>
-  <footer>&copy; 2025 <span>Saung Kuring</span> · Masakan Khas Sunda</footer>
+  <footer>&copy; 2026 <span>Saung Kuring</span> · Masakan Khas Sunda</footer>
 </div>
 
-<!-- ════════════ HALAMAN: MENU LENGKAP ════════════ -->
+<!-- MENU LENGKAP -->
 <div class="halaman" id="hal-menu">
   <div class="section">
     <div class="section-judul">Menu Kami</div>
     <div style="display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;">
-      <button class="nav-badge" onclick="filterMenu('semua')">Semua</button>
-      <button class="nav-link" style="border:2px solid var(--coklat);padding:5px 16px;border-radius:20px;" onclick="filterMenu('makanan')">Makanan</button>
-      <button class="nav-link" style="border:2px solid var(--coklat);padding:5px 16px;border-radius:20px;" onclick="filterMenu('minuman')">Minuman</button>
+      <button class="nav-badge" onclick="filterMenu('semua',this)" id="pill-semua">Semua</button>
+      <button class="pill-filter" onclick="filterMenu('makanan',this)" id="pill-makanan">Makanan</button>
+      <button class="pill-filter" onclick="filterMenu('minuman',this)" id="pill-minuman">Minuman</button>
     </div>
     <div class="grid-3" id="menu-grid"></div>
   </div>
-  <footer>&copy; 2025 <span>Saung Kuring</span> · Masakan Khas Sunda</footer>
+  <footer>&copy; 2026 <span>Saung Kuring</span> · Masakan Khas Sunda</footer>
 </div>
 
-<!-- ════════════ HALAMAN: PESAN ════════════ -->
+<!-- PESAN -->
 <div class="halaman" id="hal-pesan">
   <div class="pesan-wrap">
     <div>
-      <!-- Tracker status pesanan -->
-      <div class="status-tracker" id="status-tracker">
-        <h3>📦 Status Pesanan Kamu</h3>
-        <div id="tracker-order-id" style="font-size:.82rem;color:var(--abu);margin-bottom:12px;"></div>
-        <div class="tracker-steps">
-          <div class="tracker-step" id="trk-1">
-            <div class="step-circle" id="trk-c1">1</div>
-            <div class="step-label">Dikirim</div>
-          </div>
-          <div class="tracker-step" id="trk-2">
-            <div class="step-circle" id="trk-c2">2</div>
-            <div class="step-label">Diproses</div>
-          </div>
-          <div class="tracker-step" id="trk-3">
-            <div class="step-circle" id="trk-c3">3</div>
-            <div class="step-label">Siap</div>
-          </div>
-          <div class="tracker-step" id="trk-4">
-            <div class="step-circle" id="trk-c4">4</div>
-            <div class="step-label">Selesai</div>
-          </div>
-        </div>
-        <!-- Notifikasi makanan siap -->
-        <div class="notif-bayar tampil" id="notif-siap" style="display:none;margin-top:14px;">
-          <p>🍽️ Pesanan kamu <b>sudah siap</b> disajikan! Silakan ambil di kasir.</p>
-        </div>
-      </div>
-
-      <!-- Form info pesanan -->
       <div class="kotak" style="margin-bottom:20px;">
         <h2>Informasi Pesanan</h2>
         <div class="form-grup">
@@ -108,125 +85,66 @@
           </select>
         </div>
         <div class="form-grup">
+          <label>Metode Pembayaran</label>
+          <div class="bayar-pilihan">
+            <label class="bayar-opt" id="opt-cash">
+              <input type="radio" name="bayar" value="Cash" checked onchange="pilihBayar(this)"/>
+              <span>💵 Bayar di Kasir (Cash)</span>
+            </label>
+            <label class="bayar-opt aktif-bayar" id="opt-qr">
+              <input type="radio" name="bayar" value="Scan QR" onchange="pilihBayar(this)"/>
+              <span>📱 Scan QR Code</span>
+            </label>
+          </div>
+          <div id="qr-bayar-wrap" style="display:none;margin-top:14px;text-align:center;">
+            <div class="qr-info-box">
+              <p style="font-size:0.82rem;color:var(--abu);margin-bottom:10px;">Scan QR di bawah untuk pembayaran digital</p>
+              <canvas id="qr-bayar-canvas"></canvas>
+              <p style="font-size:0.75rem;color:var(--abu);margin-top:8px;">*Tunjukkan bukti scan ke kasir</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-grup">
           <label>Catatan (opsional)</label>
           <textarea id="inp-catatan" placeholder="Misal: tidak pedas, tanpa es, dll."></textarea>
         </div>
-
-        <!-- Metode pembayaran -->
-        <label style="display:block;font-size:.76rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;">Metode Pembayaran</label>
-        <div class="metode-bayar">
-          <div class="bayar-opsi aktif" id="opsi-cash" onclick="pilihBayar('cash')">
-            <div class="ikon">💵</div>
-            <div class="label">Bayar di Kasir (Cash)</div>
-          </div>
-          <div class="bayar-opsi" id="opsi-qr" onclick="pilihBayar('qr')">
-            <div class="ikon">📱</div>
-            <div class="label">Scan QR / QRIS</div>
-          </div>
-        </div>
-
-        <!-- QR Box (muncul jika pilih QR) -->
-        <div class="qr-box" id="qr-box">
-          <p style="font-size:.75rem;font-weight:800;color:var(--coklat);margin-bottom:8px;">Scan QRIS untuk membayar</p>
-          <div class="qr-img">
-            <!-- QR statis SVG palsu tapi tampak nyata -->
-            <svg width="130" height="130" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
-              <rect width="130" height="130" fill="white"/>
-              <!-- finder patterns -->
-              <rect x="5" y="5" width="40" height="40" fill="none" stroke="#000" stroke-width="5"/>
-              <rect x="12" y="12" width="26" height="26" fill="#000"/>
-              <rect x="85" y="5" width="40" height="40" fill="none" stroke="#000" stroke-width="5"/>
-              <rect x="92" y="12" width="26" height="26" fill="#000"/>
-              <rect x="5" y="85" width="40" height="40" fill="none" stroke="#000" stroke-width="5"/>
-              <rect x="12" y="92" width="26" height="26" fill="#000"/>
-              <!-- timing pattern -->
-              <rect x="50" y="5" width="5" height="5" fill="#000"/>
-              <rect x="60" y="5" width="5" height="5" fill="#000"/>
-              <rect x="70" y="5" width="5" height="5" fill="#000"/>
-              <rect x="5" y="50" width="5" height="5" fill="#000"/>
-              <rect x="5" y="60" width="5" height="5" fill="#000"/>
-              <rect x="5" y="70" width="5" height="5" fill="#000"/>
-              <!-- data modules (random-looking pattern) -->
-              <rect x="50" y="50" width="5" height="5" fill="#000"/>
-              <rect x="60" y="50" width="5" height="5" fill="#000"/>
-              <rect x="55" y="55" width="5" height="5" fill="#000"/>
-              <rect x="65" y="55" width="5" height="5" fill="#000"/>
-              <rect x="75" y="55" width="5" height="5" fill="#000"/>
-              <rect x="50" y="60" width="5" height="5" fill="#000"/>
-              <rect x="70" y="60" width="5" height="5" fill="#000"/>
-              <rect x="80" y="60" width="5" height="5" fill="#000"/>
-              <rect x="55" y="65" width="5" height="5" fill="#000"/>
-              <rect x="75" y="65" width="5" height="5" fill="#000"/>
-              <rect x="50" y="70" width="5" height="5" fill="#000"/>
-              <rect x="60" y="70" width="5" height="5" fill="#000"/>
-              <rect x="85" y="70" width="5" height="5" fill="#000"/>
-              <rect x="55" y="75" width="5" height="5" fill="#000"/>
-              <rect x="65" y="75" width="5" height="5" fill="#000"/>
-              <rect x="85" y="75" width="5" height="5" fill="#000"/>
-              <rect x="90" y="50" width="5" height="5" fill="#000"/>
-              <rect x="100" y="55" width="5" height="5" fill="#000"/>
-              <rect x="95" y="60" width="5" height="5" fill="#000"/>
-              <rect x="110" y="65" width="5" height="5" fill="#000"/>
-              <rect x="90" y="70" width="5" height="5" fill="#000"/>
-              <rect x="105" y="75" width="5" height="5" fill="#000"/>
-              <rect x="50" y="85" width="5" height="5" fill="#000"/>
-              <rect x="60" y="90" width="5" height="5" fill="#000"/>
-              <rect x="70" y="85" width="5" height="5" fill="#000"/>
-              <rect x="80" y="90" width="5" height="5" fill="#000"/>
-              <rect x="55" y="95" width="5" height="5" fill="#000"/>
-              <rect x="65" y="100" width="5" height="5" fill="#000"/>
-              <rect x="75" y="95" width="5" height="5" fill="#000"/>
-              <rect x="85" y="100" width="5" height="5" fill="#000"/>
-              <rect x="50" y="105" width="5" height="5" fill="#000"/>
-              <rect x="70" y="110" width="5" height="5" fill="#000"/>
-              <rect x="90" y="85" width="5" height="5" fill="#000"/>
-              <rect x="100" y="90" width="5" height="5" fill="#000"/>
-              <rect x="110" y="85" width="5" height="5" fill="#000"/>
-              <rect x="95" y="100" width="5" height="5" fill="#000"/>
-              <rect x="105" y="105" width="5" height="5" fill="#000"/>
-              <rect x="110" y="95" width="5" height="5" fill="#000"/>
-              <!-- QRIS logo center -->
-              <rect x="57" y="57" width="16" height="16" fill="white" stroke="#000" stroke-width="1"/>
-              <text x="65" y="68" font-size="7" text-anchor="middle" fill="#000" font-weight="bold">QR</text>
-            </svg>
-          </div>
-          <div class="qr-nominal" id="qr-nominal">Rp 0</div>
-          <div class="qr-info">a.n. <b>Saung Kuring</b> · QRIS All Payment</div>
-          <div class="qr-info" style="margin-top:4px;font-size:.7rem;">Tunjukkan bukti transfer ke kasir</div>
-        </div>
       </div>
-
-      <!-- Pilih menu -->
       <div class="kotak">
         <h2>Pilih Menu</h2>
         <div class="grid-3" id="pesan-grid" style="grid-template-columns:repeat(2,1fr);"></div>
       </div>
     </div>
-
-    <!-- Keranjang -->
     <div>
       <div class="kotak" style="position:sticky;top:76px;">
         <h2>🛒 Keranjang</h2>
-        <p id="keranjang-kosong" style="text-align:center;color:var(--abu);padding:20px 0;font-size:.88rem;">Belum ada pesanan</p>
+        <p id="keranjang-kosong" style="text-align:center;color:var(--abu);padding:20px 0;font-size:0.88rem;">Belum ada pesanan</p>
         <ul id="list-keranjang"></ul>
         <div id="total-harga" style="display:none"></div>
         <button class="btn-kirim" onclick="kirimPesanan()">Kirim Pesanan →</button>
       </div>
     </div>
   </div>
-  <footer>&copy; 2025 <span>Saung Kuring</span> · Masakan Khas Sunda</footer>
+  <footer>&copy; 2026 <span>Saung Kuring</span> · Masakan Khas Sunda</footer>
 </div>
 
-<!-- ════════════ HALAMAN: LOGIN ════════════ -->
+<!-- STATUS PESANAN PEMBELI -->
+<div class="halaman" id="hal-status-pesanan">
+  <div class="section">
+    <div class="section-judul">📋 Status Pesanan Saya</div>
+    <p style="color:var(--abu);font-size:0.88rem;margin-bottom:20px;">Pesanan yang kamu kirim akan muncul di sini secara real-time.</p>
+    <div id="status-pesanan-list">
+      <p style="color:var(--abu);text-align:center;padding:40px 0;">Belum ada pesanan. <a href="#" onclick="buka('pesan');return false;" style="color:var(--coklat2);">Pesan sekarang →</a></p>
+    </div>
+  </div>
+  <footer>&copy; 2026 <span>Saung Kuring</span> · Masakan Khas Sunda</footer>
+</div>
+
+<!-- LOGIN -->
 <div class="halaman" id="hal-login">
   <div class="login-wrap">
     <div class="login-kartu">
       <h2>Login Staff</h2>
-      <p class="sub">Pilih role lalu masuk dengan akun kamu</p>
-      <div class="login-tabs">
-        <button class="login-tab aktif" id="tab-role-kasir" onclick="pilihRole('kasir')">👨‍🍳 Kasir</button>
-        <button class="login-tab"       id="tab-role-admin" onclick="pilihRole('admin')">🛡️ Admin</button>
-      </div>
+      <p class="sub">Masuk sebagai Kasir atau Admin</p>
       <div class="login-err" id="login-err">❌ Username atau password salah!</div>
       <div class="form-grup">
         <label>Username</label>
@@ -237,179 +155,202 @@
         <input type="password" id="inp-pass" placeholder="••••••"/>
       </div>
       <button class="btn-masuk" onclick="login()">Masuk</button>
+      <!-- 📌 Hapus catatan ini sebelum dikumpulkan ke dosen -->
       <div class="catatan-login">
-        💡 Kasir: <b>kasir / sunda123</b><br>
-        🛡️ Admin: <b>admin / admin123</b>
+        💡 Kasir: <b>kasir</b> / <b>sunda123</b><br/>
+        👑 Admin: <b>admin</b> / <b>admin123</b>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ════════════ HALAMAN: DASHBOARD KASIR ════════════ -->
+<!-- KASIR DASHBOARD -->
 <div class="halaman" id="hal-kasir">
   <div class="kasir-wrap">
     <div class="kasir-topbar">
       <div>
         <h1>Dashboard Kasir</h1>
-        <p>Saung Kuring — Kelola pesanan & konfirmasi pembayaran</p>
+        <p>Saung Kuring — Proses pesanan & kelola pembayaran</p>
       </div>
     </div>
     <div class="stat-row">
-      <div class="stat-box"><div class="angka" id="stat-order">0</div><div class="label">Total Pesanan</div></div>
-      <div class="stat-box"><div class="angka" id="stat-baru">0</div><div class="label">Pesanan Baru</div></div>
-      <div class="stat-box"><div class="angka" id="stat-siap">0</div><div class="label">Siap Disajikan</div></div>
-      <div class="stat-box"><div class="angka" id="stat-selesai">0</div><div class="label">Selesai Hari Ini</div></div>
+      <div class="stat-box"><div class="angka" id="k-stat-order">0</div><div class="label">Total Pesanan</div></div>
+      <div class="stat-box"><div class="angka" id="k-stat-baru">0</div><div class="label">Pesanan Baru</div></div>
+      <div class="stat-box"><div class="angka" id="k-stat-selesai">0</div><div class="label">Sudah Selesai</div></div>
     </div>
-    <div class="tab-row">
-      <button class="tab aktif-tab" onclick="gantiTab('pesanan-kasir',this)">📋 Pesanan Masuk</button>
-      <button class="tab"           onclick="gantiTab('riwayat-kasir',this)">✅ Riwayat Selesai</button>
-    </div>
-    <div class="konten-tab aktif" id="tab-pesanan-kasir">
-      <div class="order-grid" id="order-grid">
-        <p style="color:var(--abu);grid-column:1/-1;text-align:center;padding:40px 0;">Belum ada pesanan masuk.</p>
-      </div>
-    </div>
-    <div class="konten-tab" id="tab-riwayat-kasir">
-      <div class="order-grid" id="riwayat-grid">
-        <p style="color:var(--abu);grid-column:1/-1;text-align:center;padding:40px 0;">Belum ada riwayat.</p>
-      </div>
+    <div class="order-grid" id="kasir-order-grid">
+      <p style="color:var(--abu);grid-column:1/-1;text-align:center;padding:40px 0;">Belum ada pesanan masuk.</p>
     </div>
   </div>
 </div>
 
-<!-- ════════════ HALAMAN: DASHBOARD ADMIN ════════════ -->
+<!-- MODAL KWITANSI -->
+<div class="modal-overlay" id="modal-kwitansi" onclick="tutupModalKwitansi(event)">
+  <div class="modal-kwitansi" id="isi-kwitansi">
+    <div class="kwit-header">
+      <div class="kwit-logo">☕ Saung Kuring</div>
+      <div class="kwit-sub">Masakan Khas Sunda · Kuningan, Jawa Barat</div>
+      <div class="kwit-garis"></div>
+    </div>
+    <div class="kwit-info" id="kwit-info"></div>
+    <div class="kwit-garis"></div>
+    <div class="kwit-items" id="kwit-items"></div>
+    <div class="kwit-garis"></div>
+    <div class="kwit-total" id="kwit-total"></div>
+    <div class="kwit-bayar" id="kwit-bayar"></div>
+    <div class="kwit-footer">
+      <p>Terima kasih sudah makan di Saung Kuring!</p>
+      <p>Wilujeng Sumping 🙏</p>
+    </div>
+    <div class="kwit-aksi no-print">
+      <button class="btn-print" onclick="printKwitansi()">🖨️ Print / Simpan PDF</button>
+      <button class="btn-tutup-kwit" onclick="document.getElementById('modal-kwitansi').style.display='none'">✕ Tutup</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN DASHBOARD -->
 <div class="halaman" id="hal-admin">
-  <div class="admin-wrap">
+  <div class="kasir-wrap">
     <div class="kasir-topbar">
       <div>
-        <h1>Dashboard Admin</h1>
+        <h1>👑 Dashboard Admin</h1>
         <p>Saung Kuring — Kelola menu & laporan keuangan</p>
       </div>
     </div>
-    <div class="tab-row">
-      <button class="tab aktif-tab" onclick="gantiTab('kelola-menu',this)">🍽️ Kelola Menu</button>
-      <button class="tab"           onclick="gantiTab('laporan',this)">💰 Laporan Keuangan</button>
+    <div class="stat-row">
+      <div class="stat-box"><div class="angka" id="a-stat-menu">0</div><div class="label">Item Menu</div></div>
+      <div class="stat-box"><div class="angka" id="a-stat-pemasukan" style="font-size:1.3rem;">Rp 0</div><div class="label">Total Pemasukan</div></div>
+      <div class="stat-box"><div class="angka" id="a-stat-order">0</div><div class="label">Total Pesanan Selesai</div></div>
     </div>
 
-    <!-- TAB: Kelola Menu -->
-    <div class="konten-tab aktif" id="tab-kelola-menu">
+    <div class="tab-row">
+      <button class="tab aktif-tab" onclick="gantiTabAdmin('kelola',this)">🍽️ Kelola Menu</button>
+      <button class="tab" onclick="gantiTabAdmin('laporan',this)">📊 Laporan Keuangan</button>
+    </div>
+
+    <!-- TAB KELOLA MENU -->
+    <div class="konten-tab aktif" id="atab-kelola">
       <div class="tabel-wrap">
         <table>
           <thead>
-            <tr><th>Nama</th><th>Jenis</th><th>Harga</th><th>Foto/Ikon</th><th>Edit</th><th>Hapus</th></tr>
+            <tr><th>Foto</th><th>Nama</th><th>Jenis</th><th>Harga</th><th>Deskripsi</th><th>Edit</th><th>Hapus</th></tr>
           </thead>
-          <tbody id="tabel-menu"></tbody>
+          <tbody id="admin-tabel-menu"></tbody>
         </table>
       </div>
       <div class="form-tambah">
-        <h3>+ Tambah Menu Baru</h3>
+        <h3 id="form-menu-title">+ Tambah Menu Baru</h3>
+        <input type="hidden" id="edit-menu-id" value=""/>
         <div class="form-inline">
-          <div class="form-grup"><label>Nama Menu</label><input type="text" id="f-nama" placeholder="Nasi Timbel"/></div>
-          <div class="form-grup"><label>Jenis</label>
+          <div class="form-grup">
+            <label>Nama Menu</label>
+            <input type="text" id="f-nama" placeholder="Nasi Timbel"/>
+          </div>
+          <div class="form-grup">
+            <label>Jenis</label>
             <select id="f-jenis"><option value="makanan">Makanan</option><option value="minuman">Minuman</option></select>
           </div>
-          <div class="form-grup"><label>Harga (Rp)</label><input type="number" id="f-harga" placeholder="25000"/></div>
-          <div class="form-grup"><label>Emoji</label><input type="text" id="f-emoji" placeholder="🍱"/></div>
-          <div class="form-grup"><label>&nbsp;</label><button class="btn-tambah" onclick="tambahMenu()">+ Tambah</button></div>
+          <div class="form-grup">
+            <label>Harga (Rp)</label>
+            <input type="number" id="f-harga" placeholder="25000"/>
+          </div>
+          <div class="form-grup">
+            <label>&nbsp;</label>
+            <button class="btn-tambah" onclick="simpanMenu()" id="btn-simpan-menu">+ Tambah</button>
+          </div>
         </div>
         <div class="form-grup" style="margin-top:10px;">
-          <label>Link URL Foto (opsional)</label>
+          <label>Link URL Foto</label>
           <div style="display:flex;gap:10px;align-items:flex-start;">
             <input type="url" id="f-foto" placeholder="https://..." oninput="previewFoto(this.value)" style="flex:1;"/>
             <img id="f-foto-preview" src="" alt="" style="width:60px;height:60px;object-fit:cover;border-radius:8px;border:2px solid var(--border);display:none;flex-shrink:0;"/>
           </div>
+          <small style="color:var(--abu);font-size:0.75rem;">Klik kanan foto → <b>Salin alamat gambar</b> → paste di sini.</small>
         </div>
-        <div class="form-grup">
-          <label>Deskripsi</label>
-          <input type="text" id="f-desc" placeholder="Deskripsi singkat menu..."/>
+        <div class="form-grup" style="margin-top:10px;">
+          <label>Deskripsi Singkat</label>
+          <input type="text" id="f-desc" placeholder="Nasi dibungkus daun pisang..."/>
         </div>
+        <button class="btn-batal-edit" id="btn-batal-edit" onclick="batalEdit()" style="display:none;margin-top:10px;">✕ Batal Edit</button>
       </div>
     </div>
 
-    <!-- TAB: Laporan Keuangan -->
-    <div class="konten-tab" id="tab-laporan">
-      <div class="lap-row">
-        <div class="lap-box hijau">
-          <div class="lap-label">💰 Total Pemasukan</div>
-          <div class="lap-angka" id="lap-masuk">Rp 0</div>
-          <div style="font-size:.78rem;color:var(--abu);margin-top:4px;" id="lap-masuk-detail">dari 0 transaksi selesai</div>
+    <!-- TAB LAPORAN -->
+    <div class="konten-tab" id="atab-laporan">
+      <div class="laporan-wrap">
+        <div class="laporan-summary">
+          <div class="lap-box lap-masuk">
+            <div class="lap-icon">💰</div>
+            <div><div class="lap-label">Total Pemasukan</div><div class="lap-angka" id="lap-total-masuk">Rp 0</div></div>
+          </div>
+          <div class="lap-box lap-order">
+            <div class="lap-icon">📋</div>
+            <div><div class="lap-label">Pesanan Selesai</div><div class="lap-angka" id="lap-total-order">0 Pesanan</div></div>
+          </div>
+          <div class="lap-box lap-avg">
+            <div class="lap-icon">📈</div>
+            <div><div class="lap-label">Rata-rata per Pesanan</div><div class="lap-angka" id="lap-avg">Rp 0</div></div>
+          </div>
         </div>
-        <div class="lap-box merah">
-          <div class="lap-label">🧾 Total Pengeluaran (Operasional)</div>
-          <div class="lap-angka" id="lap-keluar">Rp 0</div>
-          <div style="font-size:.78rem;color:var(--abu);margin-top:4px;">estimasi bahan baku (40% pemasukan)</div>
+        <div class="tabel-wrap" style="margin-top:20px;">
+          <table>
+            <thead>
+              <tr><th>ID</th><th>Nama</th><th>Waktu</th><th>Item</th><th>Total</th><th>Bayar</th><th>Status</th></tr>
+            </thead>
+            <tbody id="admin-tabel-laporan"></tbody>
+          </table>
         </div>
-      </div>
-      <div class="lap-row">
-        <div class="lap-box" style="border-color:var(--hijau);">
-          <div class="lap-label">📈 Laba Bersih (estimasi)</div>
-          <div class="lap-angka" id="lap-laba" style="color:var(--coklat2);">Rp 0</div>
-        </div>
-        <div class="lap-box">
-          <div class="lap-label">📦 Jumlah Menu Aktif</div>
-          <div class="lap-angka" id="lap-menu" style="color:var(--coklat2);">0</div>
-        </div>
-      </div>
-      <div class="tabel-wrap">
-        <table>
-          <thead><tr><th>ID Pesanan</th><th>Nama</th><th>Items</th><th>Metode</th><th>Total</th><th>Waktu</th></tr></thead>
-          <tbody id="tabel-transaksi"></tbody>
-        </table>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ════════════ MODAL EDIT MENU ════════════ -->
-<div class="modal-overlay" id="modal-edit">
-  <div class="modal-box">
-    <h3>✏️ Edit Menu</h3>
-    <input type="hidden" id="edit-id"/>
-    <div class="form-grup"><label>Nama Menu</label><input type="text" id="edit-nama"/></div>
-    <div class="form-grup"><label>Jenis</label>
-      <select id="edit-jenis"><option value="makanan">Makanan</option><option value="minuman">Minuman</option></select>
+<!-- QR AKSES PAGE -->
+<div class="halaman" id="hal-qr-page">
+  <div class="section">
+    <div class="section-judul">📱 QR Code Akses Web</div>
+    <div class="qr-page-wrap">
+      <div class="qr-card">
+        <h3>QR Halaman Pemesanan</h3>
+        <p>Scan untuk langsung ke halaman pesan</p>
+        <canvas id="qr-pesan-canvas"></canvas>
+        <div class="qr-url-label" id="qr-pesan-url"></div>
+        <button class="btn-print-qr" onclick="printQRCard('pesan')">🖨️ Print QR ini</button>
+      </div>
+      <div class="qr-card">
+        <h3>QR per Meja</h3>
+        <p>Scan dari meja langsung ke halaman pesan</p>
+        <div style="margin:12px 0;display:flex;gap:8px;align-items:center;">
+          <label style="font-size:0.82rem;font-weight:700;">Pilih Meja:</label>
+          <select id="sel-meja-qr" onchange="buatQrMeja()" style="padding:6px 10px;border:2px solid var(--border);border-radius:6px;font-family:inherit;font-size:0.84rem;background:var(--bg);">
+            <option value="1">Meja 1</option><option value="2">Meja 2</option>
+            <option value="3">Meja 3</option><option value="4">Meja 4</option>
+            <option value="5">Meja 5</option><option value="6">Meja 6</option>
+          </select>
+        </div>
+        <canvas id="qr-meja-canvas"></canvas>
+        <div class="qr-url-label" id="qr-meja-url"></div>
+        <button class="btn-print-qr" onclick="printQRCard('meja')">🖨️ Print QR ini</button>
+      </div>
     </div>
-    <div class="form-grup"><label>Harga (Rp)</label><input type="number" id="edit-harga"/></div>
-    <div class="form-grup"><label>Emoji</label><input type="text" id="edit-emoji"/></div>
-    <div class="form-grup"><label>Link URL Foto</label><input type="url" id="edit-foto"/></div>
-    <div class="form-grup"><label>Deskripsi</label><input type="text" id="edit-desc"/></div>
-    <div class="modal-footer">
-      <button class="btn-batal"  onclick="tutupModal()">Batal</button>
-      <button class="btn-simpan" onclick="simpanEdit()">Simpan</button>
+    <div class="qr-petunjuk">
+      <h3>📋 Cara Penggunaan QR Code</h3>
+      <ol>
+        <li>Print QR Code di atas dan tempel di meja atau pintu masuk cafe</li>
+        <li>Pembeli scan QR menggunakan kamera HP / aplikasi QR scanner</li>
+        <li>Browser otomatis terbuka ke halaman pemesanan Saung Kuring</li>
+        <li>Pembeli pilih menu, isi nama, pilih metode bayar, lalu kirim pesanan</li>
+        <li>Pesanan masuk otomatis ke Dashboard Kasir</li>
+      </ol>
     </div>
   </div>
+  <footer>&copy; 2026 <span>Saung Kuring</span> · Masakan Khas Sunda</footer>
 </div>
 
-<!-- ════════════ MODAL KWITANSI ════════════ -->
-<div class="kwitansi-overlay" id="kwitansi-overlay">
-  <div class="kwitansi-box" id="kwitansi-box">
-    <div class="kwitansi-header">
-      <h2>Saung Kuring ☕</h2>
-      <p>Masakan Khas Sunda</p>
-      <p id="kwt-waktu" style="font-size:.75rem;margin-top:4px;"></p>
-    </div>
-    <div class="kwitansi-row"><span>No. Pesanan</span><span id="kwt-id" style="font-weight:800;"></span></div>
-    <div class="kwitansi-row"><span>Nama</span><span id="kwt-nama"></span></div>
-    <div class="kwitansi-row"><span>Jenis</span><span id="kwt-jenis"></span></div>
-    <div class="kwitansi-row"><span>Meja</span><span id="kwt-meja"></span></div>
-    <div class="kwitansi-row"><span>Metode Bayar</span><span id="kwt-bayar"></span></div>
-    <hr class="kwitansi-divider"/>
-    <div id="kwt-items"></div>
-    <hr class="kwitansi-divider"/>
-    <div class="kwitansi-total"><span>TOTAL</span><span id="kwt-total"></span></div>
-    <div class="kwitansi-footer">
-      <div class="tks">Terima Kasih! 🙏</div>
-      <p>Semoga makan dengan nikmat & berkah</p>
-      <p style="margin-top:6px;">Jl. Contoh No.1 · Bandung · 0821-xxxx-xxxx</p>
-    </div>
-    <button class="btn-print" onclick="window.print()">🖨️ Cetak / Download PDF</button>
-    <button class="btn-tutup-modal" onclick="tutupKwitansi()">Tutup</button>
-  </div>
-</div>
-
-<!-- Toast -->
+<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<script src="script.js"></script>
+<script type="module" src="script.js"></script>
 </body>
 </html>
