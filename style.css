@@ -1,0 +1,252 @@
+:root {
+  --coklat:   #3e2a0f;
+  --coklat2:  #6b4020;
+  --kuning:   #f5e67a;
+  --bg:       #fef9c3;
+  --kartu:    #fdf3a7;
+  --border:   #c9b96e;
+  --abu:      #7a6a50;
+  --merah:    #c0392b;
+  --hijau:    #27ae60;
+  --biru:     #2980b9;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--coklat); }
+.halaman { display:none; }
+.halaman.aktif { display:block; }
+
+@keyframes atas   { from{transform:translateY(-20px);opacity:0} to{transform:translateY(0);opacity:1} }
+@keyframes bawah  { from{transform:translateY(20px);opacity:0}  to{transform:translateY(0);opacity:1} }
+@keyframes kiri   { from{transform:translateX(-30px);opacity:0} to{transform:translateX(0);opacity:1} }
+@keyframes kanan  { from{transform:translateX(30px);opacity:0}  to{transform:translateX(0);opacity:1} }
+@keyframes muncul { from{opacity:0} to{opacity:1} }
+
+/* ── NAVBAR ── */
+nav {
+  background:var(--coklat); height:62px; padding:0 40px;
+  display:flex; align-items:center; justify-content:space-between;
+  position:sticky; top:0; z-index:200; animation:atas 0.5s ease;
+}
+.logo { font-family:'Fredoka One',cursive; color:var(--kuning); font-size:1.4rem; cursor:pointer; }
+.nav-link {
+  color:var(--kuning); background:none; border:none;
+  font-family:'Nunito',sans-serif; font-size:0.85rem; font-weight:800;
+  letter-spacing:1.5px; text-transform:uppercase; cursor:pointer;
+  padding:6px 0; transition:opacity .2s;
+}
+.nav-link:hover { opacity:.6; }
+.nav-kanan { display:flex; gap:24px; align-items:center; }
+.nav-badge {
+  background:var(--kuning); color:var(--coklat); border:none;
+  font-family:'Fredoka One',cursive; font-size:.85rem;
+  padding:6px 16px; border-radius:6px; cursor:pointer; transition:opacity .2s;
+}
+.nav-badge:hover { opacity:.8; }
+
+/* ── HERO ── */
+.hero { display:grid; grid-template-columns:1fr 1fr; min-height:440px; background:var(--coklat); overflow:hidden; }
+.hero-kiri { padding:56px 40px; display:flex; flex-direction:column; justify-content:center; animation:kiri .7s ease; }
+.hero-kiri h1 { font-family:'Fredoka One',cursive; color:var(--kuning); font-size:4.2rem; line-height:1; margin-bottom:14px; text-shadow:3px 3px 0 rgba(0,0,0,.2); }
+.hero-kiri p { color:var(--kuning); font-size:1rem; font-weight:600; font-style:italic; border-top:2px solid var(--kuning); padding-top:12px; margin-bottom:24px; }
+.hero-kiri .btn-pesan { display:inline-block; background:var(--kuning); color:var(--coklat); font-family:'Fredoka One',cursive; font-size:1rem; padding:12px 28px; border-radius:8px; border:none; cursor:pointer; transition:opacity .2s; width:fit-content; }
+.hero-kiri .btn-pesan:hover { opacity:.85; }
+.hero-kanan { background:linear-gradient(135deg,#8b5e3c,#c4873a); display:flex; align-items:center; justify-content:center; font-size:9rem; animation:kanan .7s ease; }
+
+/* ── SECTION ── */
+.section { padding:40px; }
+.section-judul { font-family:'Fredoka One',cursive; font-size:1.8rem; margin-bottom:22px; animation:bawah .5s ease; }
+.grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+
+/* ── KARTU MENU ── */
+.kartu { background:var(--kartu); border:2px solid var(--coklat); border-radius:12px; overflow:hidden; display:flex; flex-direction:column; animation:bawah .5s ease; transition:transform .2s,box-shadow .2s; }
+.kartu:hover { transform:translateY(-5px); box-shadow:0 10px 24px rgba(62,42,15,.15); }
+.kartu-emoji { height:150px; display:flex; align-items:center; justify-content:center; font-size:4.5rem; background:linear-gradient(135deg,#d4a55a,#8b5e3c); overflow:hidden; }
+.kartu-emoji img { width:100%; height:100%; object-fit:cover; }
+.kartu-body { padding:14px 16px 18px; flex:1; display:flex; flex-direction:column; gap:8px; }
+.kartu-nama { font-family:'Fredoka One',cursive; font-size:1.1rem; }
+.kartu-harga { font-size:.95rem; font-weight:800; color:var(--coklat2); }
+.kartu-desc { font-size:.82rem; color:var(--abu); line-height:1.5; margin-bottom:auto; }
+.badge { display:inline-block; padding:2px 10px; border-radius:4px; font-size:.7rem; font-weight:800; letter-spacing:1px; text-transform:uppercase; }
+.badge-makan { background:#c5e8c5; color:#1a4a1a; }
+.badge-minum { background:#c5d8e8; color:#1a2a4a; }
+.btn-keranjang { background:var(--coklat); color:var(--kuning); border:none; border-radius:6px; padding:9px 0; font-family:'Nunito',sans-serif; font-size:.82rem; font-weight:800; letter-spacing:1px; cursor:pointer; transition:background .2s; text-align:center; }
+.btn-keranjang:hover { background:var(--coklat2); }
+
+/* ── HALAMAN PESAN ── */
+.pesan-wrap { padding:36px 40px; display:grid; grid-template-columns:1.4fr 1fr; gap:28px; animation:muncul .5s ease; }
+.kotak { background:var(--kartu); border:2px solid var(--coklat); border-radius:12px; padding:24px; }
+.kotak h2 { font-family:'Fredoka One',cursive; font-size:1.4rem; margin-bottom:18px; }
+.form-grup { margin-bottom:16px; }
+.form-grup label { display:block; font-size:.76rem; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px; }
+.form-grup input,.form-grup select,.form-grup textarea { width:100%; padding:10px 14px; border:2px solid var(--border); border-radius:8px; font-family:'Nunito',sans-serif; font-size:.9rem; font-weight:600; background:var(--bg); color:var(--coklat); outline:none; transition:border-color .2s; }
+.form-grup input:focus,.form-grup select:focus,.form-grup textarea:focus { border-color:var(--coklat); }
+.form-grup textarea { resize:vertical; min-height:70px; line-height:1.5; }
+
+/* Metode Bayar */
+.metode-bayar { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px; }
+.bayar-opsi { border:2px solid var(--border); border-radius:8px; padding:12px; text-align:center; cursor:pointer; transition:all .2s; background:var(--bg); }
+.bayar-opsi:hover { border-color:var(--coklat); }
+.bayar-opsi.aktif { border-color:var(--coklat); background:var(--kuning); }
+.bayar-opsi .ikon { font-size:1.6rem; margin-bottom:4px; }
+.bayar-opsi .label { font-size:.75rem; font-weight:800; color:var(--coklat); }
+
+/* QR Box */
+.qr-box { display:none; background:#fff; border:2px dashed var(--border); border-radius:10px; padding:16px; text-align:center; margin-bottom:16px; }
+.qr-box.tampil { display:block; }
+.qr-img { width:140px; height:140px; margin:0 auto 8px; background:linear-gradient(135deg,#eee,#ddd); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:.7rem; color:#666; overflow:hidden; }
+.qr-img img { width:100%; height:100%; object-fit:contain; }
+.qr-info { font-size:.75rem; color:var(--abu); }
+.qr-nominal { font-family:'Fredoka One',cursive; font-size:1.1rem; color:var(--coklat2); margin:4px 0; }
+
+/* Keranjang */
+#list-keranjang { list-style:none; }
+#list-keranjang li { display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-bottom:1px solid var(--border); font-size:.88rem; font-weight:600; }
+#list-keranjang li:last-child { border-bottom:none; }
+.hapus-item { background:#fde8e8; border:1px solid #e09090; color:var(--merah); border-radius:4px; padding:2px 8px; font-size:.75rem; font-weight:800; cursor:pointer; }
+.hapus-item:hover { background:var(--merah); color:#fff; }
+#total-harga { font-family:'Fredoka One',cursive; font-size:1.2rem; text-align:right; margin-top:12px; color:var(--coklat2); }
+#keranjang-kosong { text-align:center; color:var(--abu); font-size:.88rem; padding:20px 0; }
+.btn-kirim { width:100%; background:var(--hijau); color:#fff; border:none; border-radius:8px; padding:13px; font-family:'Fredoka One',cursive; font-size:1rem; cursor:pointer; margin-top:16px; transition:background .2s; }
+.btn-kirim:hover { background:#219150; }
+
+/* ── STATUS PESANAN (untuk pembeli) ── */
+.status-tracker { background:var(--kartu); border:2px solid var(--coklat); border-radius:12px; padding:20px 24px; margin-bottom:20px; display:none; animation:bawah .4s ease; }
+.status-tracker.tampil { display:block; }
+.status-tracker h3 { font-family:'Fredoka One',cursive; font-size:1.1rem; margin-bottom:14px; }
+.tracker-steps { display:flex; gap:0; }
+.tracker-step { flex:1; text-align:center; position:relative; }
+.tracker-step::before { content:''; position:absolute; top:14px; left:50%; width:100%; height:3px; background:var(--border); z-index:0; }
+.tracker-step:last-child::before { display:none; }
+.step-circle { width:30px; height:30px; border-radius:50%; border:3px solid var(--border); background:var(--bg); display:flex; align-items:center; justify-content:center; font-size:.75rem; font-weight:800; margin:0 auto 6px; position:relative; z-index:1; color:var(--abu); }
+.step-circle.aktif { border-color:var(--hijau); background:var(--hijau); color:#fff; }
+.step-circle.done { border-color:var(--hijau); background:var(--hijau); color:#fff; }
+.tracker-step .step-label { font-size:.68rem; font-weight:700; color:var(--abu); }
+.tracker-step.aktif .step-label { color:var(--coklat); font-weight:800; }
+
+/* Notif pembayaran QR untuk pembeli */
+.notif-bayar { background:#e8f5e9; border:2px solid var(--hijau); border-radius:10px; padding:14px 18px; display:none; margin-bottom:16px; }
+.notif-bayar.tampil { display:block; }
+.notif-bayar p { font-size:.85rem; font-weight:700; color:#1a4a1a; }
+
+/* ── LOGIN ── */
+.login-wrap { min-height:calc(100vh - 62px); display:flex; align-items:center; justify-content:center; padding:40px; animation:muncul .5s ease; }
+.login-kartu { background:var(--kartu); border:2px solid var(--coklat); border-radius:14px; padding:44px; width:100%; max-width:400px; animation:bawah .6s ease; }
+.login-kartu h2 { font-family:'Fredoka One',cursive; font-size:1.8rem; text-align:center; margin-bottom:4px; }
+.login-kartu .sub { text-align:center; color:var(--abu); font-size:.83rem; font-weight:600; margin-bottom:26px; }
+.btn-masuk { width:100%; padding:12px; background:var(--coklat); color:var(--kuning); border:none; border-radius:8px; font-family:'Fredoka One',cursive; font-size:1rem; cursor:pointer; transition:background .2s; }
+.btn-masuk:hover { background:var(--coklat2); }
+.login-err { background:#fde8e8; border:1px solid #e09090; color:var(--merah); padding:9px; border-radius:6px; font-size:.82rem; font-weight:700; text-align:center; margin-bottom:14px; display:none; }
+.catatan-login { margin-top:16px; padding-top:12px; border-top:1px solid var(--border); font-size:.76rem; color:var(--abu); text-align:center; }
+/* Tab pilih role login */
+.login-tabs { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:20px; }
+.login-tab { padding:9px; border:2px solid var(--border); border-radius:8px; background:var(--bg); font-family:'Nunito',sans-serif; font-size:.82rem; font-weight:800; cursor:pointer; text-align:center; color:var(--abu); transition:all .2s; }
+.login-tab.aktif { background:var(--coklat); color:var(--kuning); border-color:var(--coklat); }
+
+/* ── DASHBOARD KASIR ── */
+.kasir-wrap { padding:36px 40px; animation:muncul .5s ease; }
+.kasir-topbar { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:24px; }
+.kasir-topbar h1 { font-family:'Fredoka One',cursive; font-size:1.8rem; }
+.kasir-topbar p { color:var(--abu); font-size:.84rem; margin-top:4px; }
+.tab-row { display:flex; gap:8px; margin-bottom:24px; border-bottom:2px solid var(--border); }
+.tab { padding:9px 22px; background:none; border:2px solid transparent; border-bottom:none; border-radius:8px 8px 0 0; font-family:'Nunito',sans-serif; font-size:.85rem; font-weight:800; cursor:pointer; color:var(--abu); transition:all .2s; }
+.tab:hover { color:var(--coklat); }
+.tab.aktif-tab { background:var(--kartu); border-color:var(--border); color:var(--coklat); border-bottom-color:var(--kartu); margin-bottom:-2px; }
+.konten-tab { display:none; }
+.konten-tab.aktif { display:block; }
+.order-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.order-kartu { background:var(--kartu); border:2px solid var(--coklat); border-radius:10px; padding:16px; animation:bawah .4s ease; }
+.order-kartu .order-id { font-family:'Fredoka One',cursive; font-size:1rem; margin-bottom:8px; color:var(--coklat2); }
+.order-kartu .order-info { font-size:.82rem; font-weight:600; margin-bottom:4px; color:var(--coklat); }
+.order-kartu .order-items { font-size:.8rem; color:var(--abu); margin:8px 0; line-height:1.6; }
+.order-kartu .order-total { font-family:'Fredoka One',cursive; font-size:1rem; margin-top:6px; }
+.status { display:inline-block; padding:3px 10px; border-radius:4px; font-size:.72rem; font-weight:800; letter-spacing:1px; margin-bottom:8px; }
+.status-baru    { background:#fff3cd; color:#856404; }
+.status-proses  { background:#cfe2ff; color:#084298; }
+.status-siap    { background:#d4edda; color:#155724; }
+.status-selesai { background:#d1e7dd; color:#0f5132; }
+.status-dibayar { background:#e2d9f3; color:#3d1a78; }
+.btn-status { width:100%; padding:7px 0; border:2px solid var(--coklat); background:var(--bg); color:var(--coklat); border-radius:6px; font-family:'Nunito',sans-serif; font-size:.8rem; font-weight:800; cursor:pointer; margin-top:8px; transition:all .2s; }
+.btn-status:hover { background:var(--coklat); color:var(--kuning); }
+.btn-kwitansi { width:100%; padding:7px 0; border:2px solid var(--hijau); background:#e8f5e9; color:#1a5c2a; border-radius:6px; font-family:'Nunito',sans-serif; font-size:.8rem; font-weight:800; cursor:pointer; margin-top:6px; transition:all .2s; }
+.btn-kwitansi:hover { background:var(--hijau); color:#fff; }
+
+/* Badge metode bayar di order kartu */
+.badge-cash { background:#fff3cd; color:#856404; }
+.badge-qr   { background:#cfe2ff; color:#084298; }
+
+/* STAT */
+.stat-row { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:24px; }
+.stat-box { background:var(--kartu); border:2px solid var(--coklat); border-radius:10px; padding:18px 20px; }
+.stat-box .angka { font-family:'Fredoka One',cursive; font-size:2rem; color:var(--coklat2); }
+.stat-box .label { font-size:.8rem; color:var(--abu); font-weight:700; }
+
+/* ── DASHBOARD ADMIN ── */
+.admin-wrap { padding:36px 40px; animation:muncul .5s ease; }
+.tabel-wrap { background:var(--kartu); border:2px solid var(--coklat); border-radius:10px; overflow:hidden; margin-bottom:16px; }
+.tabel-wrap table { width:100%; border-collapse:collapse; }
+.tabel-wrap th { background:var(--coklat); color:var(--kuning); padding:11px 16px; font-size:.76rem; letter-spacing:1.5px; text-transform:uppercase; font-weight:800; text-align:left; }
+.tabel-wrap td { padding:11px 16px; border-bottom:1px solid var(--border); font-size:.84rem; font-weight:600; vertical-align:middle; }
+.tabel-wrap tr:last-child td { border-bottom:none; }
+.tabel-wrap tr:hover td { background:rgba(245,230,122,.3); }
+.btn-tbl { padding:4px 12px; border-radius:4px; font-size:.76rem; font-weight:800; cursor:pointer; font-family:'Nunito',sans-serif; border:2px solid; transition:all .2s; }
+.btn-hapus { background:#fde8e8; border-color:#e09090; color:var(--merah); }
+.btn-hapus:hover { background:var(--merah); color:#fff; }
+.btn-edit { background:#e8f4fd; border-color:#90c0e0; color:var(--biru); }
+.btn-edit:hover { background:var(--biru); color:#fff; }
+.form-tambah { background:var(--kartu); border:2px solid var(--coklat); border-radius:10px; padding:22px; margin-top:16px; }
+.form-tambah h3 { font-family:'Fredoka One',cursive; font-size:1.2rem; margin-bottom:16px; }
+.form-inline { display:grid; grid-template-columns:2fr 1fr 1fr 1fr auto; gap:10px; align-items:end; }
+.form-inline .form-grup { margin-bottom:0; }
+.btn-tambah { padding:10px 18px; background:var(--hijau); color:#fff; border:none; border-radius:8px; font-family:'Nunito',sans-serif; font-size:.85rem; font-weight:800; cursor:pointer; transition:background .2s; white-space:nowrap; }
+.btn-tambah:hover { background:#219150; }
+
+/* Modal edit menu */
+.modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:500; align-items:center; justify-content:center; }
+.modal-overlay.tampil { display:flex; }
+.modal-box { background:var(--kartu); border:2px solid var(--coklat); border-radius:14px; padding:28px; width:100%; max-width:420px; animation:bawah .3s ease; }
+.modal-box h3 { font-family:'Fredoka One',cursive; font-size:1.3rem; margin-bottom:16px; }
+.modal-footer { display:flex; gap:10px; margin-top:16px; }
+.btn-simpan { flex:1; padding:10px; background:var(--coklat); color:var(--kuning); border:none; border-radius:8px; font-family:'Fredoka One',cursive; font-size:.95rem; cursor:pointer; }
+.btn-batal  { flex:1; padding:10px; background:var(--bg); color:var(--coklat); border:2px solid var(--coklat); border-radius:8px; font-family:'Fredoka One',cursive; font-size:.95rem; cursor:pointer; }
+
+/* Laporan keuangan */
+.lap-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:20px; }
+.lap-box { background:var(--kartu); border:2px solid var(--coklat); border-radius:10px; padding:20px; }
+.lap-box .lap-label { font-size:.8rem; color:var(--abu); font-weight:700; margin-bottom:6px; }
+.lap-box .lap-angka { font-family:'Fredoka One',cursive; font-size:1.6rem; }
+.lap-box.hijau .lap-angka { color:var(--hijau); }
+.lap-box.merah .lap-angka { color:var(--merah); }
+
+/* ── KWITANSI MODAL ── */
+.kwitansi-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:600; align-items:center; justify-content:center; }
+.kwitansi-overlay.tampil { display:flex; }
+.kwitansi-box { background:#fff; border-radius:14px; padding:28px 32px; width:100%; max-width:360px; font-family:'Nunito',sans-serif; animation:bawah .3s ease; }
+.kwitansi-header { text-align:center; margin-bottom:16px; border-bottom:2px dashed #ccc; padding-bottom:14px; }
+.kwitansi-header h2 { font-family:'Fredoka One',cursive; font-size:1.5rem; color:var(--coklat); }
+.kwitansi-header p { font-size:.8rem; color:var(--abu); }
+.kwitansi-row { display:flex; justify-content:space-between; font-size:.85rem; padding:5px 0; color:#333; }
+.kwitansi-row.bold { font-weight:800; }
+.kwitansi-divider { border:none; border-top:1px dashed #ccc; margin:10px 0; }
+.kwitansi-total { display:flex; justify-content:space-between; font-family:'Fredoka One',cursive; font-size:1.1rem; color:var(--coklat); padding:8px 0; }
+.kwitansi-footer { text-align:center; margin-top:14px; font-size:.75rem; color:var(--abu); border-top:2px dashed #ccc; padding-top:12px; }
+.kwitansi-footer .tks { font-family:'Fredoka One',cursive; font-size:1rem; color:var(--coklat); }
+.btn-print { width:100%; margin-top:14px; padding:11px; background:var(--coklat); color:var(--kuning); border:none; border-radius:8px; font-family:'Fredoka One',cursive; font-size:1rem; cursor:pointer; }
+.btn-tutup-modal { width:100%; margin-top:8px; padding:10px; background:var(--bg); color:var(--coklat); border:2px solid var(--coklat); border-radius:8px; font-family:'Fredoka One',cursive; font-size:.95rem; cursor:pointer; }
+
+/* ── TOAST ── */
+.toast { position:fixed; bottom:24px; right:24px; background:var(--coklat); color:var(--kuning); padding:12px 22px; border-radius:8px; font-size:.88rem; font-weight:700; z-index:9999; opacity:0; transform:translateY(20px); transition:all .3s; pointer-events:none; }
+.toast.tampil { opacity:1; transform:translateY(0); }
+
+footer { background:var(--coklat); color:rgba(245,230,122,.6); text-align:center; padding:20px; font-size:.82rem; font-weight:600; margin-top:40px; }
+footer span { color:var(--kuning); }
+
+@media(max-width:860px){
+  .hero { grid-template-columns:1fr; }
+  .hero-kanan { height:200px; }
+  .grid-3,.order-grid,.stat-row,.lap-row { grid-template-columns:1fr 1fr; }
+  .pesan-wrap { grid-template-columns:1fr; }
+  nav { padding:0 16px; }
+  .section,.pesan-wrap,.kasir-wrap,.admin-wrap { padding-left:16px; padding-right:16px; }
+  .form-inline { grid-template-columns:1fr 1fr; }
+}
