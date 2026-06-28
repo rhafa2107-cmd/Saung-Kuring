@@ -667,3 +667,28 @@ function toast(msg) {
   t.classList.add('tampil');
   setTimeout(() => t.classList.remove('tampil'), 3000);
 }
+
+// ============================================================
+//  EXPOSE FUNGSI KE WINDOW (wajib karena type="module")
+// ============================================================
+window.buka             = buka;
+window.login            = login;
+window.keluar           = keluar;
+window.filterMenu       = filterMenu;
+window.tambahKeranjang  = tambahKeranjang;
+window.hapusKeranjang   = hapusKeranjang;
+window.kirimPesanan     = kirimPesanan;
+window.pilihBayar       = pilihBayar;
+window.gantiStatus      = gantiStatus;
+window.tampilKwitansi   = tampilKwitansi;
+window.tutupModalKwitansi = tutupModalKwitansi;
+window.printKwitansi    = printKwitansi;
+window.renderAdmin      = renderAdmin;
+window.gantiTabAdmin    = gantiTabAdmin;
+window.bukaEditMenu     = bukaEditMenu;
+window.batalEdit        = batalEdit;
+window.simpanMenu       = simpanMenu;
+window.hapusMenu        = hapusMenu;
+window.buatQrMeja       = buatQrMeja;
+window.printQRCard      = printQRCard;
+window.previewFoto      = previewFoto;
